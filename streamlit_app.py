@@ -12,8 +12,8 @@ def load_data_calc_stats():
     if upload_file is not None:
 
         # Read the file to a dataframe using pandas
-        df = pd.read_csv(upload_file)
 
+        df = pd.read_excel(upload_file, index_col='Параметр')
         """вычисляем статистики"""
         # Create a section for the dataframe statistics
         st.header('Statistics of Dataframe')
