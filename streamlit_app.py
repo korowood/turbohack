@@ -30,18 +30,18 @@ def setup_page_preview(data: pd.DataFrame):
     st.title("*1. Введите номер фичи.*")
     """еще описание"""
     #col = st.text_input("", '')
-    col = st.selectbox("", data.columns.tolist())
-    """Optional. You may set player's parameters in the sidebar in the left part of the screen.
-    It may help you to understand the importance of different stats for player's salary. """
-    st.title("*2. Нажмите кнопку если готовы *")
-    return col
+    # col = st.selectbox("", data.columns.tolist())
+    # """Optional. You may set player's parameters in the sidebar in the left part of the screen.
+    # It may help you to understand the importance of different stats for player's salary. """
+    # st.title("*2. Нажмите кнопку если готовы *")
+    # return col
 
 
 def main():
 
     df = load_data_calc_stats()
 
-    setup_page_preview(df)
+    # setup_page_preview(df)
 
 
 if __name__ == "__main__":
