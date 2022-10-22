@@ -13,7 +13,7 @@ def load_data_calc_stats():
 
         # Read the file to a dataframe using pandas
 
-        df = pd.read_excel(upload_file, index_col='Параметр')
+        df = pd.read_excel(upload_file, index_col='Параметр', engine="openpyxl")
         """вычисляем статистики"""
         # Create a section for the dataframe statistics
         st.header('Statistics of Dataframe')
