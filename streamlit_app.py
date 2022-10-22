@@ -14,7 +14,7 @@ def load_data_calc_stats():
         # Read the file to a dataframe using pandas
         df = pd.read_csv(upload_file)
 
-        st.subheader("вычисляем статистики")
+        """вычисляем статистики"""
         # Create a section for the dataframe statistics
         st.header('Statistics of Dataframe')
         st.write(df.describe())
