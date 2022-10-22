@@ -6,14 +6,14 @@ st.title("Модуль очистки данных")
 
 # Create file uploader object
 upload_file = st.file_uploader('Загрузите неочищенные данные')
-
+df = pd.read_excel(upload_file, index_col='Параметр', engine="openpyxl")
 
 def load_data_calc_stats():
     if upload_file is not None:
 
         # Read the file to a dataframe using pandas
 
-        df = pd.read_excel(upload_file, index_col='Параметр', engine="openpyxl")
+        # df = pd.read_excel(upload_file, index_col='Параметр', engine="openpyxl")
         """вычисляем статистики"""
         # Create a section for the dataframe statistics
         st.header('Statistics of Dataframe')
