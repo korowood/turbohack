@@ -8,36 +8,18 @@ from io import BytesIO
 
 upload_file = st.file_uploader('Загрузите неочищенные данные')
 
-@st.cache
-def get_data_from_excel(filename, datasheet):
 
-    df = pd.read_excel(
-        io=filename,
-        engine='openpyxl',
-        sheet_name=datasheet,
-    )
-
-
-    #df.colums = ['Cable Length','Theta','No.']
-    #df["hour"] = pd.to_datetime(df["Time"],format="%H:%M:%S").dt.hour
-    return df
-
-
-df = get_data_from_excel(upload_file, 'Sheet1')
-
-
-
-# def to_excel(df):
-#     output = BytesIO()
-#     writer = pd.ExcelWriter(output, engine='xlsxwriter')
-#     df.to_excel(writer, index=False, sheet_name='Sheet1')
-#     workbook = writer.book
-#     worksheet = writer.sheets['Sheet1']
-#     format1 = workbook.add_format({'num_format': '0.00'})
-#     worksheet.set_column('A:A', None, format1)
-#     writer.save()
-#     processed_data = output.getvalue()
-#     return processed_data
+def to_excel(df):
+    output = BytesIO()
+    writer = pd.ExcelWriter(output, engine='xlsxwriter')
+    df.to_excel(writer, index=False, sheet_name='Sheet1')
+    workbook = writer.book
+    worksheet = writer.sheets['Sheet1']
+    format1 = workbook.add_format({'num_format': '0.00'})
+    worksheet.set_column('A:A', None, format1)
+    writer.save()
+    processed_data = output.getvalue()
+    return processed_data
 #
 #
 #
@@ -49,9 +31,9 @@ df = get_data_from_excel(upload_file, 'Sheet1')
 #
 # # Create file uploader object
 # upload_file = st.file_uploader('Загрузите неочищенные данные')
-# # df = pd.read_excel(upload_file, index_col='Параметр', engine="openpyxl")
+# df = pd.read_excel(upload_file, index_col='Параметр', engine="openpyxl")
 #
-# df_xlsx = to_excel(upload_file)
+df_xlsx = to_excel(upload_file)
 # st.download_button(label='📥 Download Current Result',
 #                    data=df_xlsx ,
 #                    file_name='df_test.xlsx')
