@@ -44,16 +44,16 @@ def setup_page_preview(data: pd.DataFrame):
 #     features = __create_features_initial_filling(player)
 #     control_features = DEFAULT_PICKED_ADVANCED_FEATURES
 
-def show_league_stat(data, name_feat):
-    is_feat_select = st.checkbox('checkbox')
-    if is_feat_select:
-        left_col, right_col = st.columns(2)
-        with left_col:
-            fig = sns.boxplot(data=data[name_feat])
-            st.write(fig)
-        with right_col:
-            fig = sns.histplot(data=data[name_feat])
-            st.write(fig)
+# def show_league_stat(data, name_feat):
+#     is_feat_select = st.checkbox('checkbox')
+#     if is_feat_select:
+#         left_col, right_col = st.columns(2)
+#         with left_col:
+#             fig = sns.boxplot(data=data[name_feat])
+#             st.write(fig)
+#         with right_col:
+#             fig = sns.histplot(data=data[name_feat])
+#             st.write(fig)
 
 
 def main():
