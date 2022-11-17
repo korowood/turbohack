@@ -9,8 +9,8 @@ from catboost import CatBoostRegressor
 import time
 
 PATH_DATA = "Задача3. Датасет 3. Контрольный для участников.csv"
-# increase = ['х011', 'х012', 'х013', 'х018', 'х019', 'х020', 'х021', 'х027', 'х028', 'х029', 'х057', 'х058', 'х059']
-increase = ['х011', 'х012', 'х013', ]
+increase = ['х011', 'х012', 'х013', 'х018', 'х019', 'х020', 'х021', 'х027', 'х028', 'х029', 'х057', 'х058', 'х059']
+decrease = ['х008', 'х009', 'х010', 'х014', 'х015', 'х016', 'х017', 'х023', 'х024', 'х025', 'х026', 'х030']
 
 
 def get_season_period(ts):
@@ -62,3 +62,6 @@ def calculating():
     time.sleep(2)
     predictions_increase = forecast_timeseries(test_data, increase, 200)
     pd.to_pickle(predictions_increase, "data/predictions_increase.pkl")
+
+    predictions_decrease = forecast_timeseries(test_data, decrease, 200)
+    pd.to_pickle(predictions_decrease, "data/predictions_decrease.pkl")
