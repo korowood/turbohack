@@ -29,6 +29,6 @@ def v_measure_parallel(data: pandas.DataFrame, n_jobs: int = -1, tqdm_on: bool =
     for feat in data.columns:
         result.append(metrics_dict[feat])
     result = numpy.array(result)
-    result = result + result.T
+    result = result + result.T - numpy.diag(numpy.diag(result))
     result_pdf = pandas.DataFrame(data=result, columns=data.columns, index=data.columns)
     return result_pdf

@@ -96,7 +96,7 @@ class ParallelKMeans:
             predictions_dict[feature] = pred
             if save:
                 self.models[feature] = model
-        predictions = pandas.DataFrame(predictions_dict)
+        predictions = pandas.DataFrame({feat: predictions_dict[feat] for feat in features})
         if save:
             self.predictions = predictions
         return predictions
@@ -119,7 +119,7 @@ class ParallelKMeans:
         best_k = self.optim_score.iloc[self.optim_score['v_score'].idxmax()]['k']
         return best_k
 
-    def elbow(self, data: Dataset, features: List[str], k_list: List[int] = None, tqdm_on: bool = True):
+    def elbow(self, data: Dataset, features: List[str], k_list: List[int] = None, tqdm_on: bool = True, n_jobs: int = -1):
         if features is None:
             features = data.features
         if k_list is None:
@@ -127,11 +127,18 @@ class ParallelKMeans:
         iterator = k_list
         if tqdm_on:
             iterator = tqdm(iterator)
+
+        result = Parallel(n_jobs=n_jobs)(
+            delayed(lambda data, k: [k, self._kmeans(data=data, k=k)])(
+                data=data.data[features],
+                k=k
+            ) for k in iterator
+        )
+        result = sorted(result, key=lambda x: x[0])
         elbow = {'k': list(), 'inertia': list()}
-        for k in iterator:
-            _, _, model = self._kmeans(data=data.data[features], k=k)
+        for k, res in result:
             elbow['k'].append(k)
-            elbow['inertia'].append(model.inertia_)
+            elbow['inertia'].append(res[2].inertia_)
         self.inertia = pandas.DataFrame(elbow)
 
         curve = self.inertia['inertia'].to_numpy()

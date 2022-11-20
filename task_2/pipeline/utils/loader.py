@@ -8,9 +8,9 @@ class Dataset:
         self.col_mapping = None
         self.features = None
 
-    def load(self, path: str, sep: str = ';', encoding: str = 'cp1251') -> pandas.DataFrame:
+    def load(self, path: str, sep: str = ';', encoding: str = 'cp1251'):
         self.data = pandas.read_csv(path, sep=sep, encoding=encoding)
-        return self.data
+        return self
 
     def save(self, data: pandas.DataFrame, path: str, sep: str = ';', encoding: str = 'cp1251'):
         all_names_dict_answer = self.col_mapping
@@ -36,7 +36,7 @@ class Dataset:
             drop_rows: List[int] = None,
             drop_cols: List[int] = None,
             dropna: bool = False
-    ) -> pandas.DataFrame:
+    ):
         self.col_mapping = dict()
         for col in list(self.data.columns):
             if col in self.col_mapping.keys():
@@ -54,4 +54,4 @@ class Dataset:
             self.data = self.data[self.data['target'].notna()]
         self.features = [col for col in self.data.columns if col not in ['target', 'date_col']]
         self.data = self.data.set_index('date_col')
-        return self.data
+        return self
